@@ -17,12 +17,16 @@ public class JpaMain {
 
         tx.begin();
 
+        Member member = new Member();
+        member.setId(123L);
+        member.setUsername("재선");
+        member.setRoleType(RoleType.USER);
 
-        Member member1 =em.find(Member.class,11L);
-        member1.setName("aaaa");
+        em.persist(member);
 
 
-        em.detach(member1);
+
+
 
 
 
