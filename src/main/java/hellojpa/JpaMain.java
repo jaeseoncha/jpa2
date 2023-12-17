@@ -12,20 +12,35 @@ public class JpaMain {
         EntityManagerFactory emf  = Persistence.createEntityManagerFactory("hello");
         // 커넥션 받아오기
         EntityManager em =emf.createEntityManager();
-
         EntityTransaction tx  =em.getTransaction();
-
         tx.begin();
+//////////////////////////////////////////
+
+        Team team = new Team();
+        team.setName("TeamA");
+        em.persist(team);
 
         Member member = new Member();
-        member.setUsername("112");
-
+        member.setName("member1");
+        member.setTeam(team);
         em.persist(member);
 
 
+        Member findMember = em.find(Member.class,member.getId());
+
+        Team findMemberTeam = findMember.getTeam();
+
+        System.out.println("findMemberTeam = " + findMemberTeam);
+
+
+
+        Team newTeam=em.find(Team.class , 100L);
+
+        findMember.setTeam(newTeam);
+
+///////////////////////////////////////
         tx.commit();
         em.close();
-
         emf.close();
     }
 
